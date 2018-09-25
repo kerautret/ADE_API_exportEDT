@@ -13,8 +13,11 @@
     /**
      *   Customize display from different configurations
      **/
+    //Step 1: init project ID
+    $urlStep1=$ADE_WEBAPI_SERVER.'?sessionId='.$id.'&function=setProject&projectId='.$PROJECTID;
+    file_get_contents($urlStep1);
     
-    $url2=$ADE_WEBAPI_SERVER.'?sessionId='.$id.'&function=setProject&projectId='.$PROJECTID;
+    //Step 2: get EDT image from various settings
     $width=400;
     $height=300;
     // default mode (to recover it go to ADE client, in the configuration display, select add "code" field in the top front of the tab).
@@ -52,10 +55,10 @@
     }
 
     // constructing the final request:
-    $url3=$ADE_WEBAPI_SERVER.'?sessionId='.$id.'&function=imageET&resources='.$idtree.'&width='.$width.'&height='.$height.'&weeks='.$numSemaine.'&displayConfId='.$modeAffichage.'&days=0,1,2,3,4,5';
+    $urlStep2=$ADE_WEBAPI_SERVER.'?sessionId='.$id.'&function=imageET&resources='.$idtree.'&width='.$width.'&height='.$height.'&weeks='.$numSemaine.'&displayConfId='.$modeAffichage.'&days=0,1,2,3,4,5';
     
-    $imageRes = file_get_contents($url2);
-    $imageRes = file_get_contents($url3);
+   
+    $imageRes = file_get_contents($urlStep2);
     file_put_contents('edt.gif', $imageRes);
 
     header ("Content-type: image/png");
